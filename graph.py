@@ -21,22 +21,22 @@ class Graph:
             
     def hasedge(self, v1, v2):
         return v2 in self._incidence[v1]
-            
-    def addedge(self, v1, v2):
-        addv1 = lambda x: x.add(v1)
-        addv2 = lambda x: x.add(v2)
-        newinc = self._incidence.transform([v1], addv2, [v2], addv1)
-        return self._newgraph(newinc)
         
     def neighbours(self, v):
         for el in self._incidence[v]:
             yield el
-            
-    def removeedge(self, v1, v2):
-        removev1 = lambda x: x.remove(v1)
-        removev2 = lambda x: x.remove(v2)
-        newinc = self._incidence.transform([v1], removev2, [v2], removev1)
+
+    def _dostuffwithedge(self, v1, v2, fun):
+        modifyv1 = fun(v1)
+        modifyv2 = fun(v2)
+        newinc = self._incidence.transform([v1], modifyv2, [v2], modifyv1)
         return self._newgraph(newinc)
+            
+    def addedge(self, v1, v2):
+        return self._dostuffwithedge(v1, v2, lambda v: (lambda x: x.add(v)))
+                    
+    def removeedge(self, v1, v2):
+        return self._dostuffwithedge(v1, v2, lambda v: (lambda x: x.remove(v)))
         
     def removevertex(self, v):
         evo = self._incidence.evolver()
