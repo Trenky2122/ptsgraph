@@ -44,4 +44,12 @@ class Graph:
         evo[v2] = evo[v2].remove(v1)
         return self._newgraph(evo.persistent())
         
+    def removevertex(self, v):
+        evo = self._incidence.evolver()
+        for v2 in self._incidence[v]:
+            evo[v2] = evo[v2].remove(v)
+        evo.remove(v)
+        return self._newgraph(evo.persistent())
+        
+        
         

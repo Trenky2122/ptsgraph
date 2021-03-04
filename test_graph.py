@@ -42,4 +42,16 @@ assert(set(g8.neighbours(1)) == set({2}))
 assert(set(g8.neighbours(2)) == set({1}))
 assert(set(g8.neighbours(3)) == set())
 
+g9 = g7.removevertex(2)
+assert(g9.hasvertex(1) is True)
+assert(g9.hasvertex(2) is False)
+assert(set(g9.neighbours(1)) == set())
+assert(set(g9.neighbours(3)) == set())
+
+g10 = g7.removevertex(1)
+assert(g10.hasvertex(1) is False)
+assert(g10.hasvertex(2) is True)
+assert(set(g10.neighbours(2)) == set({3}))
+assert(set(g10.neighbours(3)) == set({2}))
+
 print("Tests complete.")
