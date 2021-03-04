@@ -23,4 +23,18 @@ assert(g5.hasedge(2,3) is True)
 assert(g4.hasedge(3,2) is False)
 assert(g4.hasedge(2,3) is False)
 
+assert(set(g5.neighbours(1)) == set())
+assert(set(g5.neighbours(2)) == set({3}))
+assert(set(g5.neighbours(3)) == set({2}))
+
+g6 = g5.addedge(3,2)
+assert(set(g6.neighbours(1)) == set())
+assert(set(g6.neighbours(2)) == set({3}))
+assert(set(g6.neighbours(3)) == set({2}))
+
+g7 = g6.addedge(2,1)
+assert(set(g7.neighbours(1)) == set({2}))
+assert(set(g7.neighbours(2)) == set({1,3}))
+assert(set(g7.neighbours(3)) == set({2}))
+
 print("Tests complete.")

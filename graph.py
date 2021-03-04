@@ -34,3 +34,7 @@ class Graph:
         evo[v2] = evo[v2].add(v1)
         inc = evo.persistent()
         return self._newgraph(inc)
+        
+    def neighbours(self, v):
+        for el in self._incidence[v]:
+            yield el
