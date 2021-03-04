@@ -32,8 +32,7 @@ class Graph:
         evo = self._incidence.evolver()
         evo[v1] = evo[v1].add(v2)
         evo[v2] = evo[v2].add(v1)
-        inc = evo.persistent()
-        return self._newgraph(inc)
+        return self._newgraph(evo.persistent())
         
     def neighbours(self, v):
         for el in self._incidence[v]:
@@ -43,6 +42,6 @@ class Graph:
         evo = self._incidence.evolver()
         evo[v1] = evo[v1].remove(v2)
         evo[v2] = evo[v2].remove(v1)
-        inc = evo.persistent()
-        return self._newgraph(inc)
+        return self._newgraph(evo.persistent())
+        
         
