@@ -23,20 +23,20 @@ class Graph:
         return v2 in self._incidence[v1]
             
     def addedge(self, v1, v2):
-        evo = self._incidence.evolver()
-        evo[v1] = evo[v1].add(v2)
-        evo[v2] = evo[v2].add(v1)
-        return self._newgraph(evo.persistent())
+        addv1 = lambda x: x.add(v1)
+        addv2 = lambda x: x.add(v2)
+        newinc = self._incidence.transform([v1], addv2, [v2], addv1)
+        return self._newgraph(newinc)
         
     def neighbours(self, v):
         for el in self._incidence[v]:
             yield el
             
     def removeedge(self, v1, v2):
-        evo = self._incidence.evolver()
-        evo[v1] = evo[v1].remove(v2)
-        evo[v2] = evo[v2].remove(v1)
-        return self._newgraph(evo.persistent())
+        removev1 = lambda x: x.remove(v1)
+        removev2 = lambda x: x.remove(v2)
+        newinc = self._incidence.transform([v1], removev2, [v2], removev1)
+        return self._newgraph(newinc)
         
     def removevertex(self, v):
         evo = self._incidence.evolver()
