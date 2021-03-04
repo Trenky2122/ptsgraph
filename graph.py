@@ -38,3 +38,11 @@ class Graph:
     def neighbours(self, v):
         for el in self._incidence[v]:
             yield el
+            
+    def removeedge(self, v1, v2):
+        evo = self._incidence.evolver()
+        evo[v1] = evo[v1].remove(v2)
+        evo[v2] = evo[v2].remove(v1)
+        inc = evo.persistent()
+        return self._newgraph(inc)
+        

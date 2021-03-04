@@ -37,4 +37,9 @@ assert(set(g7.neighbours(1)) == set({2}))
 assert(set(g7.neighbours(2)) == set({1,3}))
 assert(set(g7.neighbours(3)) == set({2}))
 
+g8 = g7.removeedge(3,2)
+assert(set(g8.neighbours(1)) == set({2}))
+assert(set(g8.neighbours(2)) == set({1}))
+assert(set(g8.neighbours(3)) == set())
+
 print("Tests complete.")
