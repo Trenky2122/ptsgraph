@@ -48,8 +48,7 @@ class Graph:
 
     def labelvertex(self, v, label):
         if v in self._incidence:
-            newinc = self._incidence.copy()
-            newinc = newinc.remove(v)
+            newinc = self._incidence.remove(v)
             newinc = newinc.set(labeledint(v, label), pset())
             return self._newgraph(newinc)
         else:
@@ -72,3 +71,16 @@ class Graph:
         for vt in neighbours:
             if vt == v2:
                 return vt.label
+
+    def transformvertices(self, vertices, transformation):
+        newinc = self._incidence.copy()
+        for v in self._incidence:
+            if v in vertices:
+                edges = self._incidence[v].copy()
+                newinc = newinc.remove(v)
+                newv = transformation(v)
+                newinc = newinc.set(newv, edges)
+        return self._newgraph(newinc)
+
+    def transformedge(self, v1, v2, transformation):
+        return self._dostuffwithedge(v1, v2, transformation)
